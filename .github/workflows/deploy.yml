@@ -46,7 +46,7 @@ jobs:
           pip install -e shared/kyc_core -e shared/mcp-sanctions -e src/foundry-kyc-agent
       - name: Mock evals (fails below threshold)
         run: python -m kyc_agent.evals --mode mock --threshold "$EVAL_THRESHOLD"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: deploy-eval-results
