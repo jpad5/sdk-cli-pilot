@@ -86,7 +86,11 @@ jobs:
       - uses: Azure/setup-azd@v2
 
       - name: azd auth login (OIDC)
+        timeout-minutes: 5
         run: |
+          for v in AZURE_CLIENT_ID AZURE_TENANT_ID AZURE_SUBSCRIPTION_ID; do
+            [ -n "${!v}" ] || { echo "::error::Secret $v is not set - run scripts/setup-oidc.ps1"; exit 1; }
+          done
           azd auth login \
             --client-id "$AZURE_CLIENT_ID" \
             --federated-credential-provider github \
