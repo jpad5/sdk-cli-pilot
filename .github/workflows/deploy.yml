@@ -32,7 +32,7 @@ jobs:
       DEMO_MODE: mock
       KYC_DATA_DIR: ${{ github.workspace }}/.data
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -70,7 +70,7 @@ jobs:
       AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME || 'kyc-prod' }}
       AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'eastus2' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v5
         with:
@@ -129,7 +129,7 @@ jobs:
       run:
         working-directory: src/atk-app
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
