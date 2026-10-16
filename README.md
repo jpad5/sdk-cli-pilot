@@ -60,6 +60,7 @@ azd up                                   # Foundry project + model, App Insights
 $env:DEMO_MODE = 'live'
 .\.venv\Scripts\python -m kyc_agent deploy
 .\scripts\setup-oidc.ps1                 # GitHub OIDC federated credential for the deploy workflow
+gh variable set AZURE_DEPLOY_ENABLED --body true   # opt in to deploy-on-push (Deploy workflow skips Azure jobs otherwise)
 ```
 
 ## Repository layout

@@ -120,3 +120,4 @@ Write-Host 'Next steps:' -ForegroundColor Cyan
 Write-Host "  - Create GitHub environment '$Environment' with required reviewers (governance approval)."
 Write-Host '  - Set repo variables: AZURE_ENV_NAME, AZURE_LOCATION, FOUNDRY_PROJECT_ENDPOINT, FOUNDRY_MODEL_DEPLOYMENT,'
 Write-Host '    and optionally LIVE_EVALS=true, DEPLOY_TEAMS=true  (gh variable set NAME --body VALUE).'
+Write-Host '  - Enable push-to-main deploys: gh variable set AZURE_DEPLOY_ENABLED --body true (manual dispatch always works).'

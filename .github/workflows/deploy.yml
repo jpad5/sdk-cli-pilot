@@ -56,6 +56,8 @@ jobs:
   deploy:
     name: Provision + deploy (azd)
     needs: eval
+    # Opt-in: set repo variable AZURE_DEPLOY_ENABLED=true after running scripts/setup-oidc.ps1.
+    if: ${{ vars.AZURE_DEPLOY_ENABLED == 'true' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     # Governance approval: configure required reviewers on the 'production' environment
     # (Settings -> Environments -> production -> Required reviewers = compliance/risk approvers).
