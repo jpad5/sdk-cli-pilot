@@ -1,0 +1,13 @@
+# Default owner for everything in the repo.
+*                                   @jpad5
+
+# --- Governance & evaluation paths -------------------------------------------
+# TODO: replace @jpad5 below with your compliance / model-risk team,
+#       e.g. @your-org/kyc-compliance, so agent policy changes require their review.
+/shared/kyc_core/                   @jpad5
+/shared/mcp-sanctions/              @jpad5
+/src/foundry-kyc-agent/kyc_agent/evals/  @jpad5
+/.github/workflows/eval-gate.yml    @jpad5
+/.github/workflows/deploy.yml       @jpad5
+/.github/CODEOWNERS                 @jpad5
+/infra/                             @jpad5

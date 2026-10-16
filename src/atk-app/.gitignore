@@ -1,0 +1,4 @@
+# Generated packages and environment-specific credentials
+appPackage/build/
+env/.env.*.user
+.localConfigs

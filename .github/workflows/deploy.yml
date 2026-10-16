@@ -1,0 +1,147 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_teams:
+        description: "Also deploy the Teams/M365 app via ATK (overrides vars.DEPLOY_TEAMS)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Never run two deployments to the same environment at once; never cancel an in-flight deploy.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  PYTHONUTF8: "1"
+  EVAL_THRESHOLD: "0.8"
+
+jobs:
+  eval:
+    name: Eval gate (mock)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DEMO_MODE: mock
+      KYC_DATA_DIR: ${{ github.workspace }}/.data
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            shared/**/pyproject.toml
+            src/**/pyproject.toml
+      - name: Install agent
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e shared/kyc_core -e shared/mcp-sanctions -e src/foundry-kyc-agent
+      - name: Mock evals (fails below threshold)
+        run: python -m kyc_agent.evals --mode mock --threshold "$EVAL_THRESHOLD"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deploy-eval-results
+          path: .data/eval-results.json
+          if-no-files-found: warn
+
+  deploy:
+    name: Provision + deploy (azd)
+    needs: eval
+    runs-on: ubuntu-latest
+    # Governance approval: configure required reviewers on the 'production' environment
+    # (Settings -> Environments -> production -> Required reviewers = compliance/risk approvers).
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME || 'kyc-prod' }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'eastus2' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install agent (live extras)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e shared/kyc_core -e shared/mcp-sanctions -e "src/foundry-kyc-agent[live]"
+
+      - uses: Azure/setup-azd@v2
+
+      - name: azd auth login (OIDC)
+        run: |
+          azd auth login \
+            --client-id "$AZURE_CLIENT_ID" \
+            --federated-credential-provider github \
+            --tenant-id "$AZURE_TENANT_ID"
+
+      - name: Azure CLI login (OIDC) for the Foundry SDK
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: azd provision
+        run: azd provision --no-prompt
+
+      - name: azd deploy
+        run: azd deploy --no-prompt
+
+      - name: Deploy Foundry agent version
+        env:
+          DEMO_MODE: live
+          FOUNDRY_MODEL_DEPLOYMENT: ${{ vars.FOUNDRY_MODEL_DEPLOYMENT }}
+        run: |
+          eval "$(azd env get-values)"
+          export FOUNDRY_PROJECT_ENDPOINT="${FOUNDRY_PROJECT_ENDPOINT:-${{ vars.FOUNDRY_PROJECT_ENDPOINT }}}"
+          export FOUNDRY_MODEL_DEPLOYMENT="${FOUNDRY_MODEL_DEPLOYMENT:-gpt-4.1-mini}"
+          if [ -z "$FOUNDRY_PROJECT_ENDPOINT" ]; then
+            echo "::error::FOUNDRY_PROJECT_ENDPOINT not found in azd env outputs or repo vars."; exit 1
+          fi
+          python -m kyc_agent deploy
+
+  teams:
+    name: Deploy Teams app (ATK)
+    needs: deploy
+    if: ${{ vars.DEPLOY_TEAMS == 'true' || inputs.deploy_teams }}
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: src/atk-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Install M365 Agents Toolkit CLI
+        run: npm i -g @microsoft/m365agentstoolkit-cli
+      - name: atk deploy
+        env:
+          CI_ENABLED: "true"
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        run: atk deploy --env dev -i false

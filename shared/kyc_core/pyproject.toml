@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kyc-core"
+version = "0.1.0"
+description = "Shared contracts, governance and telemetry for the KYC/AML workshop"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.6",
+  "python-dotenv>=1.0",
+  "opentelemetry-api>=1.25",
+  "opentelemetry-sdk>=1.25",
+]
+
+[project.optional-dependencies]
+a365 = ["microsoft-agents-a365-observability-core"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[tool.setuptools]
+packages = ["kyc_core"]
+
+[tool.setuptools.package-data]
+kyc_core = ["py.typed"]

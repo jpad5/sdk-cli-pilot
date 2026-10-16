@@ -1,0 +1,11 @@
+{
+  "tenantId": "",
+  "clientAppId": "",
+  "subscriptionId": "",
+  "resourceGroup": "",
+  "location": "",
+  "agentBlueprintDisplayName": "FSI KYC AML Workshop",
+  "agentIdentityDisplayName": "FSI KYC AML Compliance Agent",
+  "deploymentProjectPath": "",
+  "agentDescription": "Synthetic KYC AML review with human approval"
+}

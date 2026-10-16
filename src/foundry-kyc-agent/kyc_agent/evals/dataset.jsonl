@@ -1,0 +1,10 @@
+{"id": "clean-individual", "query": "onboard CUST-1001", "expected_decision": "approve", "expects_sar": false}
+{"id": "pep-by-id", "query": "onboard CUST-1002", "expected_decision": "enhanced_due_diligence", "expects_sar": false}
+{"id": "pep-by-name", "query": "screen Orven Glimmerquay", "expected_decision": "enhanced_due_diligence", "expects_sar": false}
+{"id": "sanctions-exact", "query": "onboard CUST-1003", "expected_decision": "reject", "expects_sar": true}
+{"id": "sanctions-alias", "query": "Please onboard customer CUST-1004 for trade finance", "expected_decision": "reject", "expects_sar": true}
+{"id": "near-miss-control", "query": "onboard Quillhaven Robotics", "expected_decision": "approve", "expects_sar": false}
+{"id": "cash-intensive", "query": "assess CUST-1006", "expected_decision": "escalate_sar", "expects_sar": true}
+{"id": "shell-company", "query": "review CUST-1007", "expected_decision": "escalate_sar", "expects_sar": true}
+{"id": "adverse-media", "query": "onboard CUST-1008", "expected_decision": "enhanced_due_diligence", "expects_sar": false}
+{"id": "unknown-customer", "query": "onboard Totally Unknown Person", "expected_decision": null, "expects_sar": false}

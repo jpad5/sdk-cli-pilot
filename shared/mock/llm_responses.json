@@ -1,0 +1,7 @@
+{
+  "approve": "Synthetic screening complete for {customer_name}. The customer is approved under the workshop policy; continue routine monitoring.",
+  "enhanced_due_diligence": "Enhanced due diligence is required for {customer_name}. Verify source of funds, beneficial ownership and any political exposure before proceeding.",
+  "escalate_sar": "Escalate {customer_name} for compliance review. A synthetic SAR draft requires a named human approver; nothing has been filed.",
+  "reject": "Do not onboard {customer_name} under this workshop policy. Review the synthetic sanctions evidence with a compliance officer.",
+  "unknown": "I could not identify a synthetic customer. Provide a customer ID such as CUST-1001 or a full name from the workshop fixtures."
+}

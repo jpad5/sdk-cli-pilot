@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kyc-m365-host"
+version = "0.1.0"
+description = "Microsoft 365 Agents SDK host for the FSI workshop"
+requires-python = ">=3.11"
+dependencies = [
+  "kyc-core",
+  "aiohttp>=3.10,<4",
+  "microsoft-agents-hosting-aiohttp>=0.9,<1",
+  "microsoft-agents-hosting-core>=0.9,<1",
+  "microsoft-agents-authentication-msal>=0.9,<1",
+  "microsoft-agents-activity>=0.9,<1",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pytest-asyncio>=0.24", "jsonschema>=4", "PyYAML>=6"]
+a365 = ["microsoft-agents-a365-observability-core>=1.0,<2", "microsoft-agents-a365-tooling"]
+
+[project.scripts]
+kyc-m365-host = "kyc_m365.app:main"
+
+[tool.setuptools.packages.find]
+include = ["kyc_m365*"]
+

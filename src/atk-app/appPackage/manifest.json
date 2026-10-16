@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.26/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.26",
+  "version": "1.0.0",
+  "id": "${{TEAMS_APP_ID}}",
+  "developer": {
+    "name": "FSI Workshop",
+    "websiteUrl": "${{WEBSITE_URL}}",
+    "privacyUrl": "${{PRIVACY_URL}}",
+    "termsOfUseUrl": "${{TERMS_URL}}"
+  },
+  "name": {"short": "KYC AML Compliance", "full": "FSI KYC AML Compliance Workshop Agent"},
+  "description": {
+    "short": "Review synthetic KYC and AML cases with human approval.",
+    "full": "Hands-on Build, Manage, Govern workshop. Screen synthetic customers, review risk and sanctions hits, and approve or reject SAR drafts. Educational only; no regulatory filing or production customer data."
+  },
+  "icons": {"color": "color.png", "outline": "outline.png"},
+  "accentColor": "#123C69",
+  "bots": [{
+    "botId": "${{BOT_ID}}",
+    "scopes": ["personal", "copilot"],
+    "supportsFiles": false,
+    "isNotificationOnly": false,
+    "commandLists": [{"scopes": ["personal", "copilot"], "commands": [
+      {"title": "Screen customer C001", "description": "Screen a synthetic customer and summarize KYC risk"}
+    ]}]
+  }],
+  "copilotAgents": {"customEngineAgents": [{
+    "id": "${{BOT_ID}}", "type": "bot",
+    "disclaimer": {"text": "Synthetic workshop data only. Human review required. This agent does not file regulatory reports."}
+  }]},
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["${{BOT_DOMAIN}}"]
+}
+

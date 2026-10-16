@@ -1,0 +1,21 @@
+name,aliases,list,country,dob,type
+Zoravian Umbra Trading,Umbra Zoravian Commodities,OFAC-SDN (synthetic),IR,,sanction
+Obsidian Moon Freighters,Nightglass Exports;Moonwake Cargo,EU-CFSP (synthetic),KP,,sanction
+Orven Glimmerquay,Orven G. Glimmerquay,PEP-Global (synthetic),GB,1975-08-23,pep
+Quillhaven Minerals,Quillhaven Ore Cooperative,EU-CFSP (synthetic),RU,,sanction
+Vesper Tanglewick,Vesper T. Tanglewick,Adverse-Press (synthetic),AU,1986-11-05,adverse_media
+Dravik Cinderwhorl,Cinderwhorl Dravik,OFAC-SDN (synthetic),RU,1968-03-14,sanction
+Nymera Thornquartz,N. Thornquartz,EU-CFSP (synthetic),BY,1980-06-21,sanction
+Brindlefog Maritime,Brindlefog Fleet,OFAC-SDN (synthetic),IR,,sanction
+Sablegear Devices,Sablegear Components,EU-CFSP (synthetic),KP,,sanction
+Eldric Mossprism,E. Mossprism,PEP-Global (synthetic),FR,1965-09-17,pep
+Fenna Cloudriddle,Fenna C. Cloudriddle,PEP-Global (synthetic),DE,1978-02-09,pep
+Kavren Starfen,Kavren S. Starfen,PEP-Global (synthetic),ZA,1972-12-03,pep
+Thistleforge Procurement,Thistleforge Buying House,OFAC-SDN (synthetic),SY,,sanction
+Gloamwharf Finance,Gloamwharf Credits,EU-CFSP (synthetic),RU,,sanction
+Pellora Duskweave,P. Duskweave,Adverse-Press (synthetic),CA,1984-07-28,adverse_media
+Rookspire Ventures,Rookspire Capital,Adverse-Press (synthetic),VG,,adverse_media
+Velmora Ashglade,Velmora A. Ashglade,OFAC-SDN (synthetic),IR,1970-10-19,sanction
+Wyrmglass Logistics,Wyrmglass Transit,EU-CFSP (synthetic),BY,,sanction
+Iskren Dewvault,I. Dewvault,PEP-Global (synthetic),JP,1969-01-26,pep
+Copperwisp Brokerage,Copperwisp Brokers,Adverse-Press (synthetic),SG,,adverse_media

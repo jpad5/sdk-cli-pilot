@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directories:
+      - "/shared/kyc_core"
+      - "/shared/mcp-sanctions"
+      - "/src/foundry-kyc-agent"
+      - "/src/m365-host"
+      - "/src/copilot-studio-intake"
+    schedule:
+      interval: weekly
+    groups:
+      python-deps:
+        patterns: ["*"]
+
+  - package-ecosystem: npm
+    directory: "/src/agent-ops-copilot"
+    schedule:
+      interval: weekly
+    groups:
+      npm-deps:
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly

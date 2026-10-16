@@ -1,0 +1,10 @@
+[
+  {"customer_id":"CUST-1001","full_name":"Liora Fablebrook","dob":"1991-04-12","country":"US","occupation":"Synthetic school librarian","customer_type":"individual","expected_monthly_volume_usd":3500,"source_of_funds":"Fictional salaried employment"},
+  {"customer_id":"CUST-1002","full_name":"Orven Glimmerquay","dob":"1975-08-23","country":"GB","occupation":"Fictional minister of imaginary province","customer_type":"individual","expected_monthly_volume_usd":18000,"source_of_funds":"Synthetic public office salary"},
+  {"customer_id":"CUST-1003","full_name":"Zoravian Umbra Trading","country":"IR","occupation":"Synthetic commodities exporter","customer_type":"entity","expected_monthly_volume_usd":750000,"source_of_funds":"Fictional commodity sales"},
+  {"customer_id":"CUST-1004","full_name":"Nightglass Exports","country":"KP","occupation":"Synthetic shipping intermediary","customer_type":"entity","expected_monthly_volume_usd":450000,"source_of_funds":"Fictional freight invoices"},
+  {"customer_id":"CUST-1005","full_name":"Quillhaven Robotics","country":"CA","occupation":"Synthetic robotics manufacturer; near-miss control, not sanctioned","customer_type":"entity","expected_monthly_volume_usd":22000,"source_of_funds":"Fictional equipment sales"},
+  {"customer_id":"CUST-1006","full_name":"Emberfen Cash Exchange","country":"IR","occupation":"Synthetic cash-intensive exchange business","customer_type":"entity","expected_monthly_volume_usd":2400000,"source_of_funds":"Large cash deposits from fictional exchange customers"},
+  {"customer_id":"CUST-1007","full_name":"Hollowspire Nominee Holdings","country":"VG","occupation":"Synthetic shell-like holding company; no employees, shared address, opaque ownership","customer_type":"entity","expected_monthly_volume_usd":980000,"source_of_funds":"Unexplained third-party transfers between fictional offshore entities"},
+  {"customer_id":"CUST-1008","full_name":"Vesper Tanglewick","dob":"1986-11-05","country":"AU","occupation":"Synthetic investment promoter","customer_type":"individual","expected_monthly_volume_usd":95000,"source_of_funds":"Fictional investor subscriptions"}
+]

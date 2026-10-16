@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: fsi-kyc-agents
+metadata:
+  template: fsi-kyc-agents@0.1.0
+infra:
+  provider: bicep
+  path: infra
+services:
+  m365-host:
+    project: src/m365-host
+    language: python
+    host: containerapp
+    docker:
+      path: ./Dockerfile
+      context: ../..
+      remoteBuild: true
+hooks:
+  postprovision:
+    windows:
+      shell: pwsh
+      run: azd env get-values > .env.azd; Write-Host "Foundry endpoint written to .env.azd - copy the values you need into .env (DEMO_MODE=live)."
+    posix:
+      shell: sh
+      run: azd env get-values > .env.azd && echo "Foundry endpoint written to .env.azd - copy the values you need into .env (DEMO_MODE=live)."
